@@ -49,11 +49,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebApiDemo0722.Common\WebApiDemo0722.Common.csproj">
-      <Project>{290d45c9-481e-4947-8489-efd49f5e76f2}</Project>
-      <Name>WebApiDemo0722.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
