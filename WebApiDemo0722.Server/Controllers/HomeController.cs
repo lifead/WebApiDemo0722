@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using WebApiDemo0722.Server.Interfaces;
+using WebApiDemo0722.Common.Interfaces;
+using WebApiDemo0722.Common.ModelsDTO;
 using WebApiDemo0722.Server.Models;
 
 namespace WebApiDemo0722.Server.Controllers
@@ -9,20 +10,27 @@ namespace WebApiDemo0722.Server.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly IWebApiDemo0722Context db;
         private readonly AppSettings settings;
+        private readonly IBookHandler bookHandler;
 
-        public HomeController(IWebApiDemo0722Context db, IOptions<AppSettings> settings)
+        public HomeController(IBookHandler bookHandler, IOptions<AppSettings> settings)
         {
-            this.db = db;
             this.settings = settings.Value;
+            this.bookHandler = bookHandler;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Get()
         {
-            var data = db.Books.ToList();
+            var data = await bookHandler.GetBooks();
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task< int> Post(BookDTO bookDTO)
+        {
+            var id = await bookHandler.CreateBook(bookDTO);
+            return id;
         }
     }
 }

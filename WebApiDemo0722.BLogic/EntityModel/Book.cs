@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApiDemo0722.Server.EntityModel
+namespace WebApiDemo0722.BLogic.EntityModel
 {
     [Table("Books")]
     public class Book

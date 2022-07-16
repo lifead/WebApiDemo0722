@@ -1,21 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Security.Authentication;
-using WebApiDemo0722.Server.Contexts;
-using WebApiDemo0722.Server.Interfaces;
+using WebApiDemo0722.BLogic.Contexts;
+using WebApiDemo0722.BLogic.Interfaces;
+using WebApiDemo0722.BLogic.Services;
+using WebApiDemo0722.Common.Interfaces;
 using WebApiDemo0722.Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<WebApiDemo0722Context>(opt =>
         opt.UseSqlServer(configuration.GetConnectionString("WebApiDemoDBConectionString")));
 
 builder.Services.AddTransient<IWebApiDemo0722Context, WebApiDemo0722Context>();
+builder.Services.AddScoped<IBookHandler, BookHandlerService>();
 
 builder.Services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
 
